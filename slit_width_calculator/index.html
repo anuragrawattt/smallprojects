@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Slit Analyst</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+    
+    <div class="dashboard">
+        <header>
+            <div class="logo-container">
+                <h1>Diffraction <span>Dashboard</span></h1>
+            </div>
+            <p>Advanced Single-Slit Interference Analysis</p>
+        </header>
+        
+        <main>
+            <!-- Left Column: Controls and calculations -->
+            <div class="panel control-panel">
+                <h2 class="panel-title">Experiment Parameters</h2>
+                
+                <div class="form-container">
+                    <div class="input-group">
+                        <label for="central-width">Central Bright Fringe Width <span>(cm)</span></label>
+                        <input type="number" id="central-width" step="any" value="0.3">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="distance">Distance to Screen <span>(cm)</span></label>
+                        <input type="number" id="distance" step="any" value="39">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="wavelength">Wavelength <span>(nm)</span></label>
+                        <input type="number" id="wavelength" step="any" value="532">
+                        <div class="color-indicator" id="color-indicator"></div>
+                    </div>
+                    
+                    <button id="calculate-btn">
+                        <span>Calculate Interferences</span>
+                    </button>
+                </div>
+
+                <div class="results-container" id="results-container" style="display: none;">
+                    <h3 class="results-title">Computed Findings</h3>
+                    <table class="results-table" style="margin-bottom: 25px;">
+                        <thead>
+                            <tr>
+                                <th>Quantity</th>
+                                <th>Computed Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                    
+                    <h3 class="results-title">Distance vs Central Width Data</h3>
+                    <div style="max-height: 250px; overflow-y: auto; border-radius: 8px;">
+                        <table class="results-table">
+                            <thead style="position: sticky; top: 0; z-index: 1;">
+                                <tr>
+                                    <th>Distance (m)</th>
+                                    <th>Central Fringe Width (mm)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="distance-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Graphs -->
+            <div class="visualization-panel">
+                
+
+                
+                <!-- 1D Pattern Strip -->
+                <div class="card visualizer-card" id="visual-container">
+                    <h2 class="card-title">Diffraction Pattern Visualizer</h2>
+                    <p class="subtitle">1D intensity projection across an 180° hemispherical screen limit</p>
+                    <div class="canvas-wrapper">
+                        <canvas id="diffraction-visual" width="800" height="60"></canvas>
+                        <div class="axis-labels">
+                            <span>-90°</span>
+                            <span>-60°</span>
+                            <span>-30°</span>
+                            <span>0°</span>
+                            <span>+30°</span>
+                            <span>+60°</span>
+                            <span>+90°</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chart.js Graph -->
+                <div class="card chart-card collapsible-card" id="chart-container-div">
+                    <div class="card-header" id="graph-header">
+                        <div>
+                            <h2 class="card-title">Predicted Dispersion</h2>
+                            <p class="subtitle">Central Fringe Width (W) linear divergence over Distance (L)</p>
+                        </div>
+                        <div class="toggle-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                    <div class="chart-wrapper">
+                        <canvas id="diffraction-chart" height="280"></canvas>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js?v=2"></script>
+</body>
+</html>
